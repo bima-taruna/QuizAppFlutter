@@ -1,4 +1,5 @@
 import 'package:first_project/background_container.dart';
+import 'package:first_project/question_screen.dart';
 import 'package:flutter/material.dart';
 
 class Quiz extends StatefulWidget {
@@ -11,6 +12,14 @@ class Quiz extends StatefulWidget {
 }
 
 class _Quiz extends State<Quiz> {
+  Widget activeScreen = const BackgroundContainer();
+
+  void switchScreen() {
+    setState(() {
+      activeScreen = const QuestionScreen();
+    });
+  }
+
   @override
   Widget build(context) {
     return MaterialApp(
@@ -22,7 +31,7 @@ class _Quiz extends State<Quiz> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight),
           ),
-          child: const BackgroundContainer()),
+          child: activeScreen),
     ));
   }
 }
