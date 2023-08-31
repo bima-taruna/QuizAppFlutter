@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key, required this.chosenAnswers});
+  const ResultScreen(
+      {super.key, required this.chosenAnswers, required this.backToStart});
 
   final List<String> chosenAnswers;
 
-  List<Map<String, Object>> getSummaryData() {
+  final void Function() backToStart;
+
+  List<Map<String, Object>> get summaryData {
     final List<Map<String, Object>> summary = [];
 
     for (var i = 0; i < chosenAnswers.length; i++) {
@@ -25,7 +28,6 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummaryData();
     final numTotalQuestions = questions.length;
     final numCorrectQuestions = summaryData.where((element) {
       return element['user_answer'] == element['correct_answer'];
@@ -55,7 +57,7 @@ class ResultScreen extends StatelessWidget {
               height: 30,
             ),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: backToStart,
               icon: const Icon(
                 Icons.restart_alt,
                 color: Colors.white,
